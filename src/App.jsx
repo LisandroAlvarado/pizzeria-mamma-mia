@@ -1,15 +1,20 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import Navbar from './components/Navbar'
-import Home from './components/Home'
+import Register from "./components/Register"
 import Footer from './components/Footer'
+// import Home from "./components/Home"
+// import Login from './components/Login'
 
-function App() {
+const App = () => {
+
   return (
 
     <div className=' d-flex flex-column min-vh-100'>
       <Navbar />
-      <Home />
+      {/* <Home /> */}
+      <Register />
+      {/*<Login /> */}
       <Footer />
     </div>
   )
