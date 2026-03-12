@@ -1,0 +1,60 @@
+.cart-container {
+    width: 600px;
+    margin: auto;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.pizza-img {
+    width: 70px;
+    border-radius: 6px;
+}
+
+.pizza-name {
+    flex: 1;
+    margin-left: 15px;
+}
+
+.pizza-price {
+    width: 100px;
+}
+
+.pizza-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-minus {
+    border: 1px solid red;
+    color: red;
+    background: white;
+    padding: 4px 10px;
+    border-radius: 5px;
+}
+
+.btn-plus {
+    border: 1px solid blue;
+    color: blue;
+    background: white;
+    padding: 4px 10px;
+    border-radius: 5px;
+}
+
+.total {
+    margin-top: 30px;
+}
+
+.btn-pay {
+    margin-top: 10px;
+    background: #333;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+}

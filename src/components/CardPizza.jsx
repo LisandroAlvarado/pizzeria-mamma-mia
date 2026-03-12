@@ -1,12 +1,12 @@
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-const CardPizza = ({ image, name, price, ingredients }) => {
+const CardPizza = ({ img, name, price, ingredients }) => {
     return (
         <Card style={{ width: "18rem" }}>
             <Card.Img
                 variant="top"
-                src={image}
+                src={img}
                 className="card-img-fixed"
             />
 
@@ -15,8 +15,11 @@ const CardPizza = ({ image, name, price, ingredients }) => {
                 <div>
                     <Card.Title>{name}</Card.Title>
                     <Card.Text>
-                        <strong>Ingredientes:</strong><br />
-                        🍕 {ingredients.join(", ")}
+                        <ul>
+                            {ingredients.map(ingredient => (
+                                <li key={ingredient}>{ingredient}</li>
+                            ))}
+                        </ul>
                     </Card.Text>
                 </div>
 
