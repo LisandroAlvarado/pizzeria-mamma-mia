@@ -12,7 +12,6 @@ const Home = () => {
             .then(data => setPizzas(data))
     }, [])
 
-
     return (
         <main>
             <Header />
