@@ -10,6 +10,8 @@ import Pizza from './views/Pizzas'
 import Login from './views/Login'
 import Register from "./views/Register"
 import Cart from './views/Cart'
+import Profile from './views/Profile'
+import NotFound from './views/NotFound'
 
 const App = () => {
 
@@ -17,13 +19,19 @@ const App = () => {
 
     <div className=' d-flex flex-column min-vh-100'>
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/pizza/p001" element={<Pizza />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/cart" element={<Cart />} />
-      </Routes>
+      <main className='flex-grow-1'>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/pizza/p001" element={<Pizza />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="*" element={<NotFound />} />
+
+        </Routes>
+      </main>
+
       <Footer />
     </div>
   )
