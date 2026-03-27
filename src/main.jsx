@@ -6,14 +6,17 @@ import { BrowserRouter } from "react-router-dom";
 
 import './index.css'
 import App from './App.jsx'
+import PizzaProvider from './context/PizzaContext.jsx';
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <CartProvider>
-      <BrowserRouter basename='/pizzeria-mamma-mia/'>
-        <App />
-      </BrowserRouter>
-    </CartProvider>
+    <PizzaProvider>
+      <CartProvider>
+        <BrowserRouter basename='/pizzeria-mamma-mia/'>
+          <App />
+        </BrowserRouter>
+      </CartProvider>
+    </PizzaProvider>
   </StrictMode>,
 )

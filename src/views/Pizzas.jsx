@@ -1,20 +1,17 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
+import { useParams } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
+import { PizzaContext } from "../context/PizzaContext";
 
 const Pizza = () => {
 
+    const { id } = useParams()
+
     const { addToCart } = useContext(CartContext)
 
-    const [pizza, setPizza] = useState(null)
+    const { pizzas } = useContext(PizzaContext)
 
-    useEffect(() => {
-        fetch("http://localhost:5000/api/pizzas/")
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                setPizza(data)
-            })
-    }, [])
+    const pizza = pizzas.find(p => p.id === id)
 
     if (!pizza) return <p>Cargando...</p>
 
@@ -36,8 +33,10 @@ const Pizza = () => {
                         ))}
                     </ul>
 
-                    <button onClick={() => addToCart(pizza)}
-                        className="btn btn-dark mt-2">
+                    <button
+                        onClick={() => addToCart(pizza)}
+                        className="btn btn-dark mt-2"
+                    >
                         Añadir al carrito 🛒
                     </button>
                 </div>

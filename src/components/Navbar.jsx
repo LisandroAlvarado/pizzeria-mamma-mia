@@ -7,8 +7,6 @@ const Navbar = () => {
 
     const { getTotal } = useContext(CartContext)
 
-
-
     const token = false;
 
     return (

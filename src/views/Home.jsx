@@ -1,23 +1,18 @@
 import Header from "./Header";
+import { useContext } from "react";
 import CardPizza from "../components/CardPizza";
-import { useState, useEffect } from "react";
+import { PizzaContext } from "../context/PizzaContext";
 
 const Home = () => {
 
-    const [pizzas, setPizzas] = useState([])
-
-    useEffect(() => {
-        fetch("http://localhost:5000/api/pizzas")
-            .then(response => response.json())
-            .then(data => setPizzas(data))
-    }, [])
+    const { pizzas } = useContext(PizzaContext)
 
     return (
         <main>
             <Header />
 
             <div className="d-flex gap-4 justify-content-center flex-wrap mt-4">
-                {pizzas.map(pizza => (
+                {pizzas?.map(pizza => (
                     <CardPizza
                         key={pizza.id}
                         pizza={pizza}
