@@ -1,7 +1,13 @@
+import { useContext } from 'react';
+import { CartContext } from "../context/CartContext";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-const CardPizza = ({ img, name, price, ingredients }) => {
+
+const CardPizza = ({ pizza }) => {
+
+    const { addToCard } = useContext(cartContext)
+
     return (
         <Card style={{ width: "18rem" }}>
             <Card.Img

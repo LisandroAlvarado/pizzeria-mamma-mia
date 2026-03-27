@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 const Pizza = () => {
+
+    const { addToCart } = useContext(CartContext)
 
     const [pizza, setPizza] = useState(null)
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/pizzas/p001")
+        fetch("http://localhost:5000/api/pizzas/")
             .then(response => response.json())
             .then(data => {
                 console.log(data)
@@ -33,7 +36,8 @@ const Pizza = () => {
                         ))}
                     </ul>
 
-                    <button className="btn btn-dark mt-2">
+                    <button onClick={() => addToCart(pizza)}
+                        className="btn btn-dark mt-2">
                         Añadir al carrito 🛒
                     </button>
                 </div>
@@ -41,6 +45,6 @@ const Pizza = () => {
             </div>
         </main>
     );
-};
+}
 
 export default Pizza

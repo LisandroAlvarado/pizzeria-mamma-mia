@@ -1,14 +1,19 @@
-import { pizzaCart } from "../pizzas";
-import { useState } from "react";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 import "./Cart.css";
 
 const Cart = () => {
-    const [cart, setCart] = useState(pizzaCart);
+    const { cart, sumaCantidad, restaCantidad } = useContext(CartContext)
+
 
     const total = cart.reduce(
-        (total, pizza) => total + pizza.price * pizza.count,
+        (total, pizza) => total + pizza.price * pizza.cantidad,
         0
     );
+
+    if (cart.length === 0) {
+        return <p>Carrito vacío</p>
+    }
 
     return (
         <div className="cart-container">
@@ -16,7 +21,7 @@ const Cart = () => {
 
             {cart.map((pizza) => (
                 <div className="cart-item" key={pizza.id}>
-                    <img src={pizza.img} className="pizza-img" />
+                    <img src={pizza.img} alt={pizza.name} className="pizza-img" />
 
                     <div className="pizza-name">
                         <h4>{pizza.name}</h4>
@@ -27,9 +32,9 @@ const Cart = () => {
                     </p>
 
                     <div className="pizza-controls">
-                        <button className="btn-minus">-</button>
-                        <span>{pizza.count}</span>
-                        <button className="btn-plus">+</button>
+                        <button onClick={() => restaCantidad(pizza.id)} className="btn-minus">-</button>
+                        <span>{pizza.cantidad}</span>
+                        <button onClick={() => sumaCantidad(pizza.id)} className="btn-plus">+</button>
                     </div>
                 </div>
             ))}

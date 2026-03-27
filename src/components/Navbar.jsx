@@ -1,8 +1,14 @@
 import Button from "react-bootstrap/Button"
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-    const total = 25000;
+
+    const { getTotal } = useContext(CartContext)
+
+
+
     const token = false;
 
     return (
@@ -36,7 +42,7 @@ const Navbar = () => {
             )}
 
             <Button as={Link} to="/cart" className="btn btn-info ms-auto">
-                🛒 Total: ${total.toLocaleString()}
+                🛒 Total: {getTotal().toLocaleString("es-CL")}
             </Button>
         </nav>
     );
