@@ -5,7 +5,6 @@ import "./Cart.css";
 const Cart = () => {
     const { cart, sumaCantidad, restaCantidad } = useContext(CartContext)
 
-
     const total = cart.reduce(
         (total, pizza) => total + pizza.price * pizza.cantidad,
         0

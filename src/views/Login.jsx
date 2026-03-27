@@ -34,14 +34,12 @@ const Login = () => {
             return
         }
 
-
         const emailLimpio = email.trim()
 
         if (!validarEmail(emailLimpio)) {
             mostrarMensaje("El email no es valido")
             return
         }
-
 
         mostrarMensaje("Formulario enviado con exito")
         setEmail('')

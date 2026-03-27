@@ -50,8 +50,8 @@ const Register = () => {
         setEmail("")
         setPassword("")
         setConfirmPassword("")
-
     }
+
     return (
 
         <div className="container d-flex justify-content-center align-items-center flex-grow-1">

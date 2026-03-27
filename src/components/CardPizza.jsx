@@ -3,7 +3,6 @@ import { CartContext } from "../context/CartContext";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-
 const CardPizza = ({ pizza }) => {
 
     const { addToCart } = useContext(CartContext)
