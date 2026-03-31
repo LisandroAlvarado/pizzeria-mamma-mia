@@ -1,6 +1,13 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { UserContext } from "../context/UserContext"
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+
+    const { login } = useContext(UserContext);
+
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [mensaje, setMensaje] = useState("")
@@ -42,6 +49,11 @@ const Login = () => {
         }
 
         mostrarMensaje("Formulario enviado con exito")
+
+        setTimeout(() => {
+            login();
+            navigate("/");
+        }, 1000)
         setEmail('')
         setPassword('')
     }

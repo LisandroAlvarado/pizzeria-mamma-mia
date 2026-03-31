@@ -1,7 +1,8 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
-import { PizzaContext } from "../context/PizzaContext";
+
+
 
 const Pizza = () => {
 
@@ -9,9 +10,14 @@ const Pizza = () => {
 
     const { addToCart } = useContext(CartContext)
 
-    const { pizzas } = useContext(PizzaContext)
+    const [pizza, setPizza] = useState(null);
 
-    const pizza = pizzas.find(p => p.id === id)
+    useEffect(() => {
+        fetch(`http://localhost:5000/api/pizzas/${id}`)
+            .then(res => res.json())
+            .then(data => setPizza(data))
+            .catch(err => console.error(err));
+    }, [id]);
 
     if (!pizza) return <p>Cargando...</p>
 

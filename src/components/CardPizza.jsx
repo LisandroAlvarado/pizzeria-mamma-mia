@@ -1,7 +1,9 @@
 import { useContext } from 'react';
 import { CartContext } from "../context/CartContext";
+
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 
 const CardPizza = ({ pizza }) => {
 
@@ -33,8 +35,13 @@ const CardPizza = ({ pizza }) => {
                 </h5>
 
                 <div className="d-flex justify-content-between">
-                    <Button variant="outline-dark">Ver más</Button>
-                    <Button onClick={() => addToCart(pizza)} variant="dark">Añadir</Button>
+                    <Link to={`/pizza/${pizza.id}`}>
+                        <Button variant="outline-dark">Ver más</Button>
+                    </Link>
+
+                    <Button onClick={() => addToCart(pizza)} variant="dark">
+                        Añadir
+                    </Button>
                 </div>
 
             </Card.Body>
