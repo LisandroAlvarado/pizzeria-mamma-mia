@@ -1,6 +1,8 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
-import { Routes, Route } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css'
+
+import { useContext } from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
 
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -13,7 +15,12 @@ import Cart from './views/Cart'
 import Profile from './views/Profile'
 import NotFound from './views/NotFound'
 
+import { UserContext } from './context/UserContext'
+
+
 const App = () => {
+
+  const { token } = useContext(UserContext)
 
   return (
 
@@ -22,11 +29,26 @@ const App = () => {
       <main className='flex-grow-1'>
         <Routes>
           <Route path="/" element={<Home />} />
+
           <Route path="/pizza/:id" element={<Pizza />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+
+          <Route
+            path="/login"
+            element={!token ? <Login /> : <Navigate to="/" />}
+          />
+
+          <Route
+            path="/register"
+            element={!token ? <Register /> : <Navigate to="/" />}
+          />
+
           <Route path="/cart" element={<Cart />} />
-          <Route path="/profile" element={<Profile />} />
+
+          <Route
+            path="/profile"
+            element={token ? <Profile /> : <Navigate to="/login" />}
+          />
+
           <Route path="*" element={<NotFound />} />
 
         </Routes>
