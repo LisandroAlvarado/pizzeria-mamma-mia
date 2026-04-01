@@ -1,16 +1,33 @@
+// Hook para manejar estado en formularios
 import { useState } from "react";
 
+/**
+ * Componente Register
+ * Maneja el formulario de registro de usuario
+ * con validaciones y feedback al usuario
+ */
 const Register = () => {
+
+    // Estados de los inputs
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+
+    // Estado para mensajes de error o éxito
     const [mensaje, setMensaje] = useState("")
 
+    /**
+ * Valida el formato del email usando regex
+ */
     const validarEmail = (correo) => {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         return regex.test(correo)
     }
 
+
+    /**
+     * Muestra un mensaje temporal (3 segundos)
+     */
     const mostrarMensaje = (texto) => {
         setMensaje(texto)
 
@@ -19,9 +36,13 @@ const Register = () => {
         }, 3000)
     }
 
+    /**
+    * Valida los datos del formulario antes de registrar
+    */
     const validarDatos = (e) => {
         e.preventDefault()
 
+        // Validación: campos vacíos
         if (!email.trim() ||
             !password.trim() ||
             !confirmPassword.trim()) {
@@ -31,22 +52,28 @@ const Register = () => {
 
         const emailLimpio = email.trim()
 
+        // Validación: formato email
         if (!validarEmail(emailLimpio)) {
             mostrarMensaje("El formato del email no es valido")
             return
         }
 
+        // Validación: largo mínimo password
         if (password.length < 6) {
             mostrarMensaje("El password debe tener al menos 6 caracteres")
             return
         }
 
+        // Validación: contraseñas coinciden
         if (password !== confirmPassword) {
             mostrarMensaje("Las contraseñas no coinciden")
             return
         }
 
+        // Si todo está correcto
         setMensaje("Registro exitoso")
+
+        // Limpia el formulario
         setEmail("")
         setPassword("")
         setConfirmPassword("")
@@ -58,6 +85,7 @@ const Register = () => {
             <div className="card shadow p-4" style={{ width: "400px" }}>
                 <h3 className="text-center mb-4">Registro</h3>
 
+                {/* Mensaje dinámico */}
                 {mensaje && (
                     <div className={`alert ${mensaje === "Registro exitoso" ? "alert-success" : "alert-danger"
                         }`}>
@@ -65,6 +93,7 @@ const Register = () => {
                     </div>
                 )}
 
+                {/* Formulario */}
                 <form className="formulario" onSubmit={validarDatos}>
 
                     <div className="mb-3">

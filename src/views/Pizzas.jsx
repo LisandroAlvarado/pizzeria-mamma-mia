@@ -1,24 +1,44 @@
+// Hooks de React
 import { useContext, useEffect, useState } from "react";
+
+// Hook para obtener parámetros de la URL
 import { useParams } from "react-router-dom";
+
+// Contexto del carrito
 import { CartContext } from "../context/CartContext";
 
-
-
+/**
+ * Componente Pizza
+ * Muestra el detalle de una pizza específica
+ * según el id recibido desde la URL
+ */
 const Pizza = () => {
 
+    // Obtenemos el id desde la ruta (/pizza/:id)
     const { id } = useParams()
 
+    // Función para agregar productos al carrito
     const { addToCart } = useContext(CartContext)
 
+    // Estado que almacena la pizza obtenida desde la API
     const [pizza, setPizza] = useState(null);
 
+    /**
+  * useEffect se ejecuta cuando cambia el id
+  * Realiza una petición a la API para obtener la pizza específica
+  */
     useEffect(() => {
         fetch(`http://localhost:5000/api/pizzas/${id}`)
             .then(res => res.json())
+            // Guardamos la pizza en el estado
             .then(data => setPizza(data))
+            // Manejo de errores
             .catch(err => console.error(err));
     }, [id]);
 
+    /**
+    * Mientras los datos no llegan, mostramos mensaje de carga
+    */
     if (!pizza) return <p>Cargando...</p>
 
     return (
