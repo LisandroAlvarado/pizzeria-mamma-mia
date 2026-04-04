@@ -39,7 +39,19 @@ const Pizza = () => {
     /**
     * Mientras los datos no llegan, mostramos mensaje de carga
     */
-    if (!pizza) return <p>Cargando...</p>
+    if (!pizza) {
+        return (
+            <div className="container d-flex justify-content-center align-items-center mt-5">
+                <div className="text-center">
+
+                    <div className="spinner-border text-primary mb-3" role="status"></div>
+
+                    <p>Cargando pizza...</p>
+
+                </div>
+            </div>
+        );
+    }
 
     return (
         <main className="container mt-4">
