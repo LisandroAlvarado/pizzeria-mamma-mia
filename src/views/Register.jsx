@@ -3,7 +3,6 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
-
 /**
  * Componente Register
  * Maneja el formulario de registro de usuario
@@ -96,7 +95,7 @@ const Register = () => {
 
     return (
 
-        <div className="container d-flex justify-content-center align-items-center flex-grow-1">
+        <div className="container d-flex justify-content-center align-items-center flex-grow-1 mt-5">
             <div className="card shadow p-4" style={{ width: "400px" }}>
                 <h3 className="text-center mb-4">Registro</h3>
 

@@ -90,7 +90,7 @@ const Login = () => {
     }
 
     return (
-        <div className="container d-flex justify-content-center align-items-center flex-grow-1">
+        <div className="container d-flex justify-content-center align-items-center flex-grow-1 mt-5">
             <div className="card shadow p-4" style={{ width: "400px" }}>
                 <h3 className="text-center mb-4">Iniciar Sesión</h3>
 

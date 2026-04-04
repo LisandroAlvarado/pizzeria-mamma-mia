@@ -78,56 +78,51 @@ const Cart = () => {
     };
 
     return (
-        <div className="cart-container">
-            <h2>Detalles del pedido:</h2>
+        <div className="container mt-5 d-flex justify-content-center">
+            <div className="card shadow p-4" style={{ width: "600px" }}>
 
-            {/* Recorre los productos del carrito */}
-            {cart.map((pizza) => (
-                <div className="cart-item" key={pizza.id}>
+                <h3 className="text-center mb-4">Detalles del pedido</h3>
 
-                    {/* Imagen del producto */}
-                    <img src={pizza.img} alt={pizza.name} className="pizza-img" />
+                {cart.map((pizza) => (
+                    <div className="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2" key={pizza.id}>
 
-                    {/* Nombre de la pizza */}
-                    <div className="pizza-name">
-                        <h4>{pizza.name}</h4>
+                        <div className="d-flex align-items-center gap-3">
+                            <img src={pizza.img} alt={pizza.name} width="60" />
+                            <h5 className="mb-0">{pizza.name}</h5>
+                        </div>
+
+                        <p className="mb-0">
+                            ${pizza.price.toLocaleString("es-CL")}
+                        </p>
+
+                        <div className="d-flex align-items-center gap-2">
+                            <button onClick={() => restaCantidad(pizza.id)} className="btn btn-danger btn-sm">-</button>
+                            <span>{pizza.cantidad}</span>
+                            <button onClick={() => sumaCantidad(pizza.id)} className="btn btn-primary btn-sm">+</button>
+                        </div>
                     </div>
+                ))}
 
-                    {/* Precio formateado */}
-                    <p className="pizza-price">
-                        ${pizza.price.toLocaleString("es-CL")}
-                    </p>
+                <h4 className="text-end mt-3">
+                    Total: ${total.toLocaleString("es-CL")}
+                </h4>
 
-                    {/* Controles para modificar cantidad */}
-                    <div className="pizza-controls">
-                        <button onClick={() => restaCantidad(pizza.id)} className="btn-minus">-</button>
-                        <span>{pizza.cantidad}</span>
-                        <button onClick={() => sumaCantidad(pizza.id)} className="btn-plus">+</button>
+                {mensaje && (
+                    <div className="alert alert-success text-center mt-3">
+                        {mensaje}
                     </div>
-                </div>
-            ))}
+                )}
 
-            {/* Total final */}
-            <h2 className="total">
-                Total: ${total.toLocaleString("es-CL")}
-            </h2>
-
-            {mensaje && <p className="mensaje">{mensaje}</p>}
-
-            {/* 
-              Botón de pago:
-              - Se deshabilita si el usuario NO está logueado
-              - Cambia estilo visual con clase "disabled"
-            */}
-            <button
-                className={`btn-pay ${!token ? "disabled" : ""}`}
-                disabled={!token}
-                onClick={handleCheckout}
-            >
-                Pagar
-            </button>
+                <button
+                    className="btn btn-success w-100 mt-3"
+                    disabled={!token}
+                    onClick={handleCheckout}
+                >
+                    Pagar
+                </button>
+            </div>
         </div>
     );
-};
+}
 
 export default Cart;
