@@ -49,14 +49,11 @@ const Login = () => {
     /**
  * Valida los datos del formulario antes de enviar
  */
-    const validarDatos = (e) => {
+    const validarDatos = async (e) => {
         e.preventDefault()
 
         // Validación: campos vacíos
-        if (
-            !email.trim() ||
-            !password.trim()
-        ) {
+        if (!email.trim() || !password.trim()) {
             mostrarMensaje("Todos los campos son obligatorios")
             return
         }
@@ -76,17 +73,20 @@ const Login = () => {
             return
         }
 
-        mostrarMensaje("Formulario enviado con exito")
-
-        // Simula login y redirección
-        setTimeout(() => {
-            login();
+        try {
+            // Llama al backend
+            await login(emailLimpio, password);
+            mostrarMensaje("Formulario enviado con exito")
+            // Solo despues del login exitoso
             navigate("/");
-        }, 1000)
 
-        // Limpia el formulario
-        setEmail('')
-        setPassword('')
+            // Limpia el formulario si el login fue exitoso
+            setEmail('')
+            setPassword('')
+
+        } catch (error) {
+            mostrarMensaje("Error al iniciar sesión")
+        }
     }
 
     return (

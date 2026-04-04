@@ -1,5 +1,5 @@
 // Hook para acceder a contextos globales
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 // Contextos
 import { CartContext } from "../context/CartContext";
@@ -16,6 +16,9 @@ import "./Cart.css";
 const Cart = () => {
     // Estado global del carrito y funciones para modificarlo
     const { cart, sumaCantidad, restaCantidad } = useContext(CartContext)
+
+    // Estado para el mesaje
+    const [mensaje, setMensaje] = useState("");
 
     // Estado de autenticación del usuario
     const { token } = useContext(UserContext);
@@ -36,6 +39,43 @@ const Cart = () => {
     if (cart.length === 0) {
         return <p>Carrito vacío</p>
     }
+
+    // Función para realizar el checkout (compra del carrito)
+    const handleCheckout = async () => {
+        try {
+            // Realiza una petición POST al backend para procesar la compra
+            const response = await fetch("http://localhost:5000/api/checkouts", {
+                method: "POST", // Método HTTP para enviar datos
+
+                headers: {
+                    // Indica que el cuerpo de la petición está en formato JSON
+                    "Content-Type": "application/json",
+
+                    // Envía el token JWT para autenticar al usuario
+                    Authorization: `Bearer ${token}`
+                },
+
+                // Se envía el carrito en el body convertido a JSON
+                body: JSON.stringify({
+                    cart: cart
+                })
+            });
+
+            // Verifica si la respuesta del servidor es correcta (status 200-299)
+            if (!response.ok) {
+                // Si hay un error en la respuesta, se lanza una excepción
+                throw new Error("Error en la compra");
+            }
+
+            // Si todo sale bien, se muestra un mensaje de éxito al usuario
+            setMensaje("Compra realizada con éxito 🎉");
+
+        } catch (error) {
+            // Si ocurre cualquier error (red, backend, token, etc.)
+            // se muestra un mensaje de error al usuario
+            setMensaje("Error al procesar la compra ❌");
+        }
+    };
 
     return (
         <div className="cart-container">
@@ -72,6 +112,8 @@ const Cart = () => {
                 Total: ${total.toLocaleString("es-CL")}
             </h2>
 
+            {mensaje && <p className="mensaje">{mensaje}</p>}
+
             {/* 
               Botón de pago:
               - Se deshabilita si el usuario NO está logueado
@@ -80,6 +122,7 @@ const Cart = () => {
             <button
                 className={`btn-pay ${!token ? "disabled" : ""}`}
                 disabled={!token}
+                onClick={handleCheckout}
             >
                 Pagar
             </button>

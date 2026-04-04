@@ -1,5 +1,8 @@
 // Hook para manejar estado en formularios
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
+
 
 /**
  * Componente Register
@@ -9,6 +12,10 @@ import { useState } from "react";
 const Register = () => {
 
     // Estados de los inputs
+    const { register } = useContext(UserContext)
+    const navigate = useNavigate()
+
+    // Estados del formulario
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
@@ -24,7 +31,6 @@ const Register = () => {
         return regex.test(correo)
     }
 
-
     /**
      * Muestra un mensaje temporal (3 segundos)
      */
@@ -39,7 +45,7 @@ const Register = () => {
     /**
     * Valida los datos del formulario antes de registrar
     */
-    const validarDatos = (e) => {
+    const validarDatos = async (e) => {
         e.preventDefault()
 
         // Validación: campos vacíos
@@ -70,13 +76,22 @@ const Register = () => {
             return
         }
 
-        // Si todo está correcto
-        setMensaje("Registro exitoso")
+        try {
+            await register(emailLimpio, password)
 
-        // Limpia el formulario
-        setEmail("")
-        setPassword("")
-        setConfirmPassword("")
+            // Si todo está correcto
+            setMensaje("Registro exitoso")
+            // Solo despues si el registro fue exitoso
+            navigate("/");
+
+            // Limpia el formulario solo si fue exitoso
+            setEmail("")
+            setPassword("")
+            setConfirmPassword("")
+
+        } catch (error) {
+            mostrarMensaje("Error en el registro")
+        }
     }
 
     return (
