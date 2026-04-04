@@ -1,6 +1,8 @@
 // Hook para acceder a contextos globales
 import { useContext, useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 // Contextos
 import { CartContext } from "../context/CartContext";
 import { UserContext } from "../context/UserContext";
@@ -23,6 +25,8 @@ const Cart = () => {
     // Estado de autenticación del usuario
     const { token } = useContext(UserContext);
 
+    const navigate = useNavigate();
+
     /**
    * Calcula el total a pagar
    * sumando precio * cantidad de cada pizza
@@ -37,7 +41,26 @@ const Cart = () => {
   * y evitamos renderizar el resto del componente
   */
     if (cart.length === 0) {
-        return <p>Carrito vacío</p>
+        return (
+            <div className="container mt-5 d-flex justify-content-center">
+                <div className="card shadow text-center p-4" style={{ maxWidth: "400px" }}>
+
+                    <h4 className="mb-3">🛒 Carrito vacío</h4>
+
+                    <p className="text-muted">
+                        Aún no has agregado productos a tu carrito.
+                    </p>
+
+                    <button
+                        className="btn btn-primary mt-3"
+                        onClick={() => navigate("/")}
+                    >
+                        Ver pizzas
+                    </button>
+
+                </div>
+            </div>
+        );
     }
 
     // Función para realizar el checkout (compra del carrito)
